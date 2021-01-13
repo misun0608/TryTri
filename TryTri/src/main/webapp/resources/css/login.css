@@ -1,0 +1,75 @@
+
+#container{
+    height: 100vh;
+    /* background: var(--fds-fb-blue-70); */
+    display: flex;
+    justify-content: center;
+    align-items: center ;
+}
+
+.login_outline{
+    /* position: relative; */
+    text-align: center;
+    max-width:500px;
+}
+
+.login_title{
+    color: #183c7a;
+    font-weight: 900;
+    padding-bottom: 14px;
+    font-size: 20px;
+    line-height: 1.2;
+}
+
+.login_outline .id_section{
+    margin-bottom: 30px;
+}
+
+.login_outline .pw_section{
+    margin-bottom: 10px;
+}
+
+.login_outline .id_section input,
+.login_outline .pw_section input{
+    width: 250px;
+    height: 30px;
+    border: none;
+    border-radius: 3px;
+    padding-left: 8px;
+}
+
+/* 자동로그인 아이디찾기 부분 */
+.login_underline{
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#login_btn{
+    border: none;
+    width: 100%;
+    font-size: 14px;
+    color: #fff;
+    background: #183c7a;
+    padding: 10px;
+    margin-top: 15px;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+#login_btn:hover{
+    background: #2050a2;
+}
+
+.signup_section{
+    color: var(--tt-gray);
+    font-size: 15px;
+    margin-top: 0.5em;
+    /*text-align: right;*/
+    text-decoration: underline;
+}
+
+.signup_section:hover{
+    color: #6a6a6a;
+}

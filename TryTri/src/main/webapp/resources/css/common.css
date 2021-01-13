@@ -1,0 +1,121 @@
+:root{
+    --fds-fb-blue-70: #4267B2; /*header color*/
+    --tt-while: white;
+    --tt-black: #000000;
+    --tt-gray: #565656;
+}
+
+body {
+    background-color: #e9ebee;
+    color: #1d2129;
+    font-family: 'Nanum Gothic', sans-serif;
+}
+
+#header{
+    width: 100vw;   
+    /*
+    view point width 라는 뜻으로 화면 전체 100을 가져가겠다라는 의미
+    */
+    background-color: var(--fds-fb-blue-70);
+    /* 위에 있는 컬러를 갖다쓰는 방법 */
+    position: fixed;
+    left: 0;
+    top: 0;
+    /* 상단에 고정하기 위해 */
+    z-index: 9999;
+}
+
+#header .inner{
+    width: 1200px;
+    /* 너비 알아서 */
+    height: 110px;
+    /* 높이도 알아서 */
+    /* background-color: orange; */
+    margin: 0 auto;
+    color: var(--tt-while);
+    display: flex;
+    justify-content: space-between;
+}
+
+#header ul{
+    list-style:none;
+}
+
+#header li{
+    float:left;  
+    margin:1px;
+}
+
+#header li a{
+    display: block;
+    text-align: center;
+}
+
+#header li a span{
+    display: block;
+}
+
+#header .menu li{
+    margin-right: 50px;
+    margin-bottom: 10px;
+    font-size: 20px;
+}
+
+#nav{
+    display: flex;
+    /* justify-content: space-between; */
+    align-items:flex-end;
+}
+
+#header .inner .left {
+    display: flex;
+}
+
+.inner img{
+    /* width: 100%; */
+    height: 100%;
+}
+
+#header .right {
+    display: flex;
+}
+
+/* 헤더 우측상단 회원가입 로그인 부분 */
+#header .right li {
+    margin-top: 7px;
+    margin-right: 10px;
+    font-size: 15px;
+}
+
+/* footer 구간 */
+
+#footer{
+    width: 100vw;   
+    background-color: var(--fds-fb-blue-70);
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    /* 하단에 고정하기 위해 */
+    z-index: 9999;
+}
+
+#footer .inner{
+    width: 1200px;
+    /* 너비 알아서 */
+    height: 100px;
+    /* 높이도 알아서 */
+    margin: 0 auto;
+    color: var(--tt-while);
+}
+
+#footer .inner .message{
+    line-height: 1.5;
+    padding-top: 15px;
+}
+
+
+
+
+@media screen and (max-width:1240px){
+
+}
