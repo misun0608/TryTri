@@ -2,9 +2,9 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:aop="http://www.springframework.org/schema/aop"
-	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
 	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:context="http://www.springframework.org/schema/context"
 	xsi:schemaLocation="http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.3.xsd
 		http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
@@ -12,8 +12,8 @@
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
 	
 	<!-- 추가 시작 -->
-	<!-- config파일 자동 로드 location="classpath:database.properties"  /!-->
-    <context:property-placeholder location="/config/*.properties" /> 
+	<!-- 파일 자동 로드 / 오류남 결국 안사용 하는 걸로 -->
+ 	<context:property-placeholder location="/config/*.properties" />
     <!-- 추가 끝 -->
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
@@ -24,16 +24,16 @@
     <!-- 자신의 PC(로컬)에 MySql을 설치했을 경우 -->
     
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-	    <property name="driverClassName" value="${spring.datasource.driverClassName}" />
-	    <property name="url" value="${spring.datasource.url}" />
-	    <property name="username" value="${spring.datasource.username}" />
-	    <property name="password" value="${spring.datasource.password}" />
+		<property name="driverClassName" value="com.mysql.cj.jdbc.Driver" />
+		<property name="url" value="jdbc:mysql://127.0.0.1:3306/trytri?characterEncoding=UTF-8&amp;serverTimezone=UTC" />
+		<property name="username" value="scott" />
+		<property name="password" value="123456" />
 	</bean>
     
     <!-- mybatis SqlSessionFactoryBean -->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource"></property>
-        <property name="typeAliasesPackage" value="com.myproject.trytri" />
+        <property name="typeAliasesPackage" value="com.myproject.trytri" /><!-- 얘는 굳이 안써도 될거같은 느낌 -->
         <property name="mapperLocations" value="classpath*:/com/myproject/mapper/**/*.xml"></property>
     </bean>
 	
@@ -42,4 +42,4 @@
 	</bean>
 	
 	<!-- 추가 끝 -->
-</beans>	
+</beans>

@@ -1,0 +1,51 @@
+#container{
+    /* width: 1000px; */
+    height: 100vh;
+    /* background: var(--fds-fb-blue-70); */
+    display: flex;
+    justify-content: center;
+    /* align-items: center ; */
+}
+
+.board_area{
+    width: 1000px;
+    position: relative;
+}
+
+#table {
+    display: table; 
+    width: 100%;
+    position: absolute;
+    top: 300px;
+}
+.row {
+    display: table-row;
+    text-align: center;
+}
+
+.title{
+    font-weight: bold;
+}
+.cell {
+    display: table-cell; 
+    padding: 10px; 
+    border-bottom: 1px solid #DDD;
+}
+
+.title .cell{
+    padding: 15px; 
+}
+
+.col1 {
+    width: 20%;
+}
+.col2 {
+    width: 60%;
+}
+.col3 {
+    width: 20%;
+}
+
+#table .content .col2{
+    text-align: left;
+}

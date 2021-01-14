@@ -15,6 +15,8 @@
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery-3.4.1.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery.easing.1.3.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/page.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/login.js"></script>
+
 </head>
 <body>
 	<header id="header"></header>
@@ -23,11 +25,11 @@
 	    <div class="login_outline">
 	        <div class="login_area">
 	            <h3 class="login_title">LOGIN</h3>
-	            <form action="" id="login_form">
+	            <form action="login_process.do" name="login_form" method="post">
 	                <div class="login_data">
 	                    <div class="id_section">
 	                        <!-- <span class="id"></span><label>아이디</label> -->
-	                        <input type="text" name="member_id" class="input_login" placeholder="아이디">
+	                        <input type="text" name="member_id" class="input_login" ime-mode="disable" placeholder="아이디">
 	                    </div>
 	                    <div class="pw_section">
 	                        <!-- <span class="pw"></span><label>비밀번호</label> -->
@@ -46,7 +48,7 @@
 	                    <input type="button" id="login_btn" class="login_btn" onclick="onclick_login()" value="로그인">
 	
 	                    <div class="signup_section">
-	                        <a href="">아직도 회원이 아니신가요?</a>
+	                        <a href="./signup_page.do">아직도 회원이 아니신가요?</a>
 	                    </div>
 	                    
 	                </div>
