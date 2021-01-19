@@ -1,17 +1,22 @@
 package com.myproject.trytri;
 
 import java.io.PrintWriter;
+import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.myproject.trytri.voes.MemberVO;
+import com.myproject.trytri.voes.NoticeVO;
 
 @Controller
 public class TTPageController {
@@ -101,14 +106,87 @@ public class TTPageController {
 	}
 	
 	// Notice board
-	@RequestMapping(value = "/notice_page.do")
-	public String notice_page() throws Exception {
+//	@RequestMapping(value = "/notice_page.do")
+//	public String notice_page() throws Exception {
+//		try {
+//			
+//		}catch(Exception e) {
+//			System.out.println("Error(TTPageController/notice_page) : " + e.getMessage());
+//		}
+//	
+//		return "board_notice_list";
+//	}
+	
+	// Go to notice board write page
+	@RequestMapping(value = "/notice_write_page.do")
+	public String notice_write_page() {
+		
+		return "board_notice_write";
+	}
+	
+	// Notice board list
+	@GetMapping("/notice_list.do")
+	public ModelAndView notice_list(@RequestParam(value = "pageCount", required = false, defaultValue = "1") int pageCount
+			,@RequestParam(value = "pageNum", required = false, defaultValue = "1") int pageNum) {
+		ModelAndView mav = new ModelAndView();
+		ArrayList<NoticeVO> nlist = null;
+		
+		if(pageNum <= 0) {
+			pageNum = 1;
+		}
+		
+		if(pageNum > pageCount) {
+			pageNum = pageCount;
+		}
+		
+		int pageSize = 10;
+		int currentPage = pageNum;
+		int startRow = (currentPage-1) * pageSize + 1;		// 현재 페이지에 읽기 시작할 row 번호
+		int endRow = startRow + pageSize - 1;				// 현재 페이지에 읽을 마지막 row 번호
+		int count = 0;
+		int number = 0;
+		
 		try {
+			count = tts.getNoticeBoardCount();	// startRow, endRow 파라미터로 필요없지 않나? / 게시판 총 개수 구하는
+			while(count < startRow) {
+				currentPage = currentPage - 1;
+				startRow = (currentPage - 1) * pageSize + 1;
+				endRow = startRow + pageSize - 1;
+			}
+			if(count > 0) {
+				nlist = tts.loadNoticeBoard(startRow, endRow);
+				number = count - (currentPage - 1) * pageSize;
+			}
+			mav.addObject("nlist", nlist);
+			mav.addObject("currentPage", currentPage);
+			mav.addObject("count", count);
+			mav.addObject("number", number);
+			mav.addObject("pageSize", pageSize);
 			
 		}catch(Exception e) {
-			System.out.println("Error(TTPageController/notice_page) + " + e.getMessage());
+			System.out.println("Error(TTPageController/notice_list.do) : " + e.getMessage());
 		}
-	
-		return "board_list";
+		mav.setViewName("board_notice_list");
+		return mav;
 	}
+	
+	// Write on notice board
+	@RequestMapping(value = "/write_notice.do")
+	public String write_notice(NoticeVO nv) throws Exception {
+		try {
+			tts.insertNoticeBoard(nv);
+		}catch(Exception e) {
+			System.out.println("Error(TTPageController/write_notice) : " + e.getMessage());
+		}
+		return "redirect:notice_list.do";
+	}
+	
+	// Notice board detail
+	@GetMapping("/notice_detail.do")
+	public ModelAndView noticeBoardDetail() {
+		ModelAndView mav = new ModelAndView();
+		
+		return mav;
+	}
+	
 }

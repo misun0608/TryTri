@@ -15,8 +15,9 @@
 #table {
     display: table; 
     width: 100%;
-    position: absolute;
+    position:absolute;
     top: 300px;
+    /* left: 0; */
 }
 .row {
     display: table-row;
@@ -26,15 +27,15 @@
 .title{
     font-weight: bold;
 }
-.cell {
+#table .cell {
     display: table-cell; 
     padding: 10px; 
     border-bottom: 1px solid #DDD;
 }
 
-.title .cell{
+/* .title .cell{
     padding: 15px; 
-}
+} */
 
 .col1 {
     width: 20%;
@@ -48,4 +49,132 @@
 
 #table .content .col2{
     text-align: left;
+}
+
+.write_button{
+    position:absolute;
+    top: 300px;
+}
+
+
+/* ///////////Notice board write form////////// */
+
+#table2{
+    display: block;
+    position:absolute;
+    /* width: 100%; */
+    top: 300px;
+    width: 100vh;
+}
+
+#table2 .cell {
+    display: table-cell; 
+    padding: 0.4em 0.2em; 
+    /* border-bottom: 1px solid #DDD; */
+}
+
+.row2{
+    display: table;
+    width: 100%;
+}
+
+/* 제목 부분 */
+/* .part1 {
+    width: 10%;
+} */
+
+.part1 select {
+    /* 브라우저에서 디폴트로 적용하는 스타일 제거 */
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+
+    font-family: 'Nanum Gothic';
+    color: #444;
+    background-color: #fff;
+    padding: 0.6em 1em;
+    margin: 0;
+    border: 1px solid #aaa;
+    border-radius: 0.5em;
+    /* width: 20vh; */
+}
+
+.part1 select:focus, .part2 input[type="text"]:focus,
+.content_textarea:focus{
+    border: 2px solid var(--fds-fb-blue-70);
+    border-color: var(--fds-fb-blue-70);
+    outline: none;
+}
+
+.part2 {
+    width: 90%;
+}
+
+.part2 input[type="text"]{
+    border:none;
+    border-right:0px; 
+    border-top:0px; 
+    border-left:0px; 
+    border-bottom:0px;
+    width: 100%;
+    padding: 0.6em 1em;
+}
+
+/* 내용 부분 */
+.content_textarea{
+    resize: none;
+    border:none;
+    border-right:0px; 
+    border-top:0px; 
+    border-left:0px; 
+    border-bottom:0px;
+    height: 50vh;
+    width: 100vh;
+    font-size: 14px;
+    font-family: 'Nanum Gothic';
+    line-height: 1.5;
+    padding: 1em;
+}
+
+
+/* 버튼부분 */
+.button_row{
+    display: flex;
+    justify-content: center;
+}
+
+
+.upload_btn{
+    border: solid 1px var(--tt-black);
+    background-color: #fff;
+    border-radius: 3px;
+    padding: 0.3em 0.5em;
+    font-family: 'Nanum Gothic';
+
+}
+
+.notice_btn{
+    /* border: none; */
+    border: solid 1px #183c7a;
+    font-family: 'Nanum Gothic';
+    font-size: 0.9em;
+    color: #fff;
+    background: #183c7a;
+    padding: 0.4em 1em;
+    /* margin-bottom: 100px; */
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+.write_btn:hover{
+    /* background-color: transparent; */
+    background: #2050a2;
+    border: solid 1px #2050a2;
+}
+
+.cancel_btn{
+    background-color: #fff;
+    color: var(--tt-black);
+    border: solid 1px var(--tt-black);
+    border-color: var(--tt-black);
 }

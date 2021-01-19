@@ -1,3 +1,4 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -27,11 +28,19 @@
                     <span class="cell col2">제목</span>
                     <span class="cell col3">등록일</span>
                 </div>
-                <div class="row content">
-                    <span class="cell col1">12</span>
-                    <span class="cell col2">1월 정기모임 안내</span>
-                    <span class="cell col3">2021.01.14</span>
-                </div>
+                <c:forEach items="${nlist}" var="noticeVO">
+	                <div class="row content">
+	                    <span class="cell col1">${noticeVO.notice_num}</span>
+	                    <span class="cell col2">
+	                    	<a href="">${noticeVO.notice_title}</a>
+	                   	</span>
+	                    <span class="cell col3">${noticeVO.notice_reg_date}</span>
+	                </div>
+                </c:forEach>
+            </div>
+            
+            <div class="write_button">
+            	<button onClick="location.href='./notice_write_page.do'">글쓰기</button>
             </div>
 
             <!-- 페이징 부분-->

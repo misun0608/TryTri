@@ -45,7 +45,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="./notice_page.do">
+                        <a href="./notice_list.do">
                             <span class="notice">Notice</span>
                         </a>
                     </li>

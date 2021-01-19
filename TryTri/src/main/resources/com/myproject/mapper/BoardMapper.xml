@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 
+
+ -->
+
+<mapper namespace="com.myproject.mapper.BoardMapper">
+	<resultMap type="com.myproject.trytri.voes.NoticeVO" id="noticeRM">
+		<result property="notice_num" column="notice_num" />
+		<result property="notice_title" column="notice_title" />
+		<result property="notice_content" column="notice_content" />
+		<result property="notice_reg_date" column="notice_reg_date" />
+		<result property="notice_stored_photo1" column="notice_stored_photo1" />
+		<result property="notice_type" column="notice_type" />
+	</resultMap>
+
+
+	<insert id="insertNoticeBoard" parameterType="com.myproject.trytri.voes.NoticeVO">
+		insert into trytri.tt_notice
+		(notice_title, notice_content, notice_reg_date, notice_type)
+		 values
+		(#{notice_title},#{notice_content},now(),#{notice_type})
+	</insert>
+	
+	<select id="getNoticeBoardCount" resultType="int">
+		select count(*) from tt_notice
+	</select>
+	
+	<select id="loadNoticeBoard" parameterType="int" resultMap="noticeRM">
+		select *
+		from (select @rownum:=@rownum+1 as rnum, notice_num, notice_title, notice_content, 
+		notice_reg_date, notice_stored_photo1, notice_type 
+		from (select * from trytri.tt_notice order by notice_num desc) a) b 
+		where rnum >= #{startRow} and rnum <![CDATA[ <= ]]> #{endRow} and (@rownum:=0)=0
+	</select>
+</mapper>
