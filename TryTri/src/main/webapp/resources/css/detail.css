@@ -12,45 +12,6 @@
     position: relative;
 }
 
-#table {
-    display: table; 
-    width: 100%;
-    position:absolute;
-    top: 300px;
-    /* left: 0; */
-}
-.row {
-    display: table-row;
-    text-align: center;
-}
-
-.title{
-    font-weight: bold;
-}
-#table .cell {
-    display: table-cell; 
-    padding: 10px; 
-    border-bottom: 1px solid #DDD;
-}
-
-/* .title .cell{
-    padding: 15px; 
-} */
-
-.col1 {
-    width: 20%;
-}
-.col2 {
-    width: 60%;
-}
-.col3 {
-    width: 20%;
-}
-
-#table .content .col2{
-    text-align: left;
-}
-
 /* ///////////Notice board write form////////// */
 
 #table2{
@@ -59,6 +20,11 @@
     /* width: 100%; */
     top: 300px;
     width: 100vh;
+}
+
+.nc_title{
+	font-weight: "bold";
+	background-color: "white";
 }
 
 #table2 .cell {
@@ -72,46 +38,10 @@
     width: 100%;
 }
 
-/* 제목 부분 */
-/* .part1 {
-    width: 10%;
-} */
-
-.part1 select {
-    /* 브라우저에서 디폴트로 적용하는 스타일 제거 */
-    -moz-appearance: none;
-    -webkit-appearance: none;
-    appearance: none;
-
-    font-family: 'Nanum Gothic';
-    color: #444;
-    background-color: #fff;
-    padding: 0.6em 1em;
-    margin: 0;
-    border: 1px solid #aaa;
-    border-radius: 0.5em;
-    /* width: 20vh; */
-}
-
-.part1 select:focus, .part2 input[type="text"]:focus,
 .content_textarea:focus{
     border: 2px solid var(--fds-fb-blue-70);
     border-color: var(--fds-fb-blue-70);
     outline: none;
-}
-
-.part2 {
-    width: 90%;
-}
-
-.part2 input[type="text"]{
-    border:none;
-    border-right:0px; 
-    border-top:0px; 
-    border-left:0px; 
-    border-bottom:0px;
-    width: 100%;
-    padding: 0.6em 1em;
 }
 
 /* 내용 부분 */
@@ -122,9 +52,9 @@
     border-top:0px; 
     border-left:0px; 
     border-bottom:0px;
-    height: 50vh;
-    width: 100vh;
-    font-size: 14px;
+    height: 10vh;
+    width: 95vh;
+    font-size: 0.9em;
     font-family: 'Nanum Gothic';
     line-height: 1.5;
     padding: 1em;
@@ -144,7 +74,6 @@
     border-radius: 3px;
     padding: 0.3em 0.5em;
     font-family: 'Nanum Gothic';
-
 }
 
 .notice_btn{
@@ -171,4 +100,24 @@
     color: var(--tt-black);
     border: solid 1px var(--tt-black);
     border-color: var(--tt-black);
+}
+
+.nc_title{
+    display: flex;
+    justify-content: space-between;  
+}
+
+.detail_btn_cell{
+    float: right;
+}
+
+/* 버튼부분 */
+.reply_button_row{
+    display: flex;
+    justify-content: end;
+    /* align-items: flex-end; */
+}
+
+.reply_button_cell{
+    float: right;
 }

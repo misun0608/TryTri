@@ -27,11 +27,27 @@
 		select count(*) from tt_notice
 	</select>
 	
-	<select id="loadNoticeBoard" parameterType="int" resultMap="noticeRM">
+<!-- 	<select id="loadNoticeBoard" parameterType="int" resultMap="noticeRM">
 		select *
 		from (select @rownum:=@rownum+1 as rnum, notice_num, notice_title, notice_content, 
 		notice_reg_date, notice_stored_photo1, notice_type 
 		from (select * from trytri.tt_notice order by notice_num desc) a) b 
 		where rnum >= #{startRow} and rnum <![CDATA[ <= ]]> #{endRow} and (@rownum:=0)=0
+	</select> -->
+	
+	<select id="getNoticeDetail" parameterType="int" resultMap="noticeRM">
+		select *
+		from trytri.tt_notice
+		where notice_num = #{notice_num}
+	</select>
+	
+	<!-- 페이징 새로운 버전 -->
+	<select id="listPage" parameterType="int" resultMap="noticeRM">
+		select
+	  	notice_num, notice_title, notice_content, 
+	  	notice_reg_date, notice_stored_photo1, notice_type
+	 	from trytri.tt_notice
+	 	order by notice_num desc
+	  	limit #{displayPost}, #{postNum}
 	</select>
 </mapper>

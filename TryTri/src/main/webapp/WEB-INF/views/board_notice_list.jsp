@@ -1,6 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,7 +33,7 @@
 	                <div class="row content">
 	                    <span class="cell col1">${noticeVO.notice_num}</span>
 	                    <span class="cell col2">
-	                    	<a href="">${noticeVO.notice_title}</a>
+	                    	<a href="./notice_detail.do?notice_num=${noticeVO.notice_num}">${noticeVO.notice_title}</a>
 	                   	</span>
 	                    <span class="cell col3">${noticeVO.notice_reg_date}</span>
 	                </div>
@@ -45,11 +46,32 @@
 
             <!-- 페이징 부분-->
             <div class="paging">
+				<ul class="pagination modal">
+					<c:if test="${page.prev}">
+						<li><a href="notice_list.do?num=${page.startPageNum - 1}">이전</a></li>
+					</c:if>
+					
+					<c:forEach begin="${page.startPageNum}" end="${page.endPageNum}" var="num">
+						<li>
+						<c:if test="${select != num}">
+							<a href="notice_list.do?num=${num}">${num}</a>
+						</c:if>
+						<c:if test="${select == num}">
+							<b>${num}</b>
+						</c:if>
+						</li>
+					</c:forEach>
 
+					<c:if test="${page.next}">
+						<li><a href="notice_list.do?num=${page.endPageNum + 1}">다음</a></li>
+					</c:if>
+
+				</ul>
             </div>
             <!--페이징 부분 끝-->
         </article>
     </section>
-
+	
+	<!-- <footer id="footer"></footer> -->
 </body>
 </html>

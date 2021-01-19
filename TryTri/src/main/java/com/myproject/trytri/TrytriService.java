@@ -15,6 +15,12 @@ public interface TrytriService {
 	// Notice board pagination
 	public int getNoticeBoardCount() throws Exception;
 	
-	// 뭔지 아직은 모르겠엄
-	public ArrayList<NoticeVO> loadNoticeBoard(int startRow, int endRow) throws Exception;
+	// 구버전 paging
+//	public ArrayList<NoticeVO> loadNoticeBoard(int startRow, int endRow) throws Exception;
+	
+	// Notice Detail
+	public NoticeVO getNoticeDetail(int notice_num) throws Exception;
+	
+	//
+	public ArrayList<NoticeVO> listPage(int displayPost, int postNum) throws Exception;
 }

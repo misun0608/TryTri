@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.myproject.trytri.voes.MemberVO;
 import com.myproject.trytri.voes.NoticeVO;
+import com.myproject.trytri.voes.Page;
 
 @Controller
 public class TTPageController {
@@ -51,6 +52,18 @@ public class TTPageController {
 		}
 		
 		return "header";
+	}
+	
+	// footer
+	@RequestMapping(value = "footer.do")
+	public String footer() throws Exception{
+		try {
+			
+		}catch(Exception e) {
+			System.out.println("Error(TTPageController/footer) : " + e.getMessage());
+		}
+		
+		return "footer";
 	}
 	
 	// Footer
@@ -124,44 +137,80 @@ public class TTPageController {
 		return "board_notice_write";
 	}
 	
-	// Notice board list
+//	// Notice board list
+//	@GetMapping("/notice_list.do")
+//	public ModelAndView notice_list(@RequestParam(value = "pageCount", required = false, defaultValue = "1") int pageCount
+//			,@RequestParam(value = "pageNum", required = false, defaultValue = "1") int pageNum) {
+//		ModelAndView mav = new ModelAndView();
+//		ArrayList<NoticeVO> nlist = null;
+//		
+//		if(pageNum <= 0) {									// 페이징에 처음뜨는 페이지수
+//			pageNum = 1;
+//		}
+//		
+//		if(pageNum > pageCount) {
+//			pageNum = pageCount;
+//		}
+//		
+//		int pageSize = 10;									// 한 페이지에 출력할 게시물 개수
+//		int currentPage = pageNum;
+//		int startRow = (currentPage-1) * pageSize + 1;		// 현재 페이지에 읽기 시작할 row 번호
+//		int endRow = startRow + pageSize - 1;				// 현재 페이지에 읽을 마지막 row 번호
+//		int count = 0;										// 게시글 총 개수
+//		int number = 0;
+//		
+//		try {
+//			count = tts.getNoticeBoardCount();	// startRow, endRow 파라미터로 필요없지 않나? / 게시글 총 개수 구하는
+//			while(count < startRow) {
+//				currentPage = currentPage - 1;
+//				startRow = (currentPage - 1) * pageSize + 1;
+//				endRow = startRow + pageSize - 1;
+//			}
+//			if(count > 0) {
+//				nlist = tts.loadNoticeBoard(startRow, endRow);
+//				number = count - (currentPage - 1) * pageSize;
+//			}
+//			mav.addObject("nlist", nlist);
+//			mav.addObject("currentPage", currentPage);
+//			mav.addObject("count", count);
+//			mav.addObject("number", number);
+//			mav.addObject("pageSize", pageSize);
+//			
+//		}catch(Exception e) {
+//			System.out.println("Error(TTPageController/notice_list.do) : " + e.getMessage());
+//		}
+//		mav.setViewName("board_notice_list");
+//		return mav;
+//	}
+	
+	// Notice board list another version
 	@GetMapping("/notice_list.do")
-	public ModelAndView notice_list(@RequestParam(value = "pageCount", required = false, defaultValue = "1") int pageCount
-			,@RequestParam(value = "pageNum", required = false, defaultValue = "1") int pageNum) {
+	public ModelAndView notice_list(@RequestParam(value = "num", required = false, defaultValue = "1") int num) {
 		ModelAndView mav = new ModelAndView();
 		ArrayList<NoticeVO> nlist = null;
-		
-		if(pageNum <= 0) {
-			pageNum = 1;
-		}
-		
-		if(pageNum > pageCount) {
-			pageNum = pageCount;
-		}
-		
-		int pageSize = 10;
-		int currentPage = pageNum;
-		int startRow = (currentPage-1) * pageSize + 1;		// 현재 페이지에 읽기 시작할 row 번호
-		int endRow = startRow + pageSize - 1;				// 현재 페이지에 읽을 마지막 row 번호
-		int count = 0;
-		int number = 0;
+		Page page = new Page();
 		
 		try {
-			count = tts.getNoticeBoardCount();	// startRow, endRow 파라미터로 필요없지 않나? / 게시판 총 개수 구하는
-			while(count < startRow) {
-				currentPage = currentPage - 1;
-				startRow = (currentPage - 1) * pageSize + 1;
-				endRow = startRow + pageSize - 1;
-			}
-			if(count > 0) {
-				nlist = tts.loadNoticeBoard(startRow, endRow);
-				number = count - (currentPage - 1) * pageSize;
-			}
+			page.setNum(num);
+			
+			// 게시물 총 개수
+			page.setCount(tts.getNoticeBoardCount());
+			
+			nlist = tts.listPage(page.getDisplayPost(), page.getPostNum());
+			
 			mav.addObject("nlist", nlist);
-			mav.addObject("currentPage", currentPage);
-			mav.addObject("count", count);
-			mav.addObject("number", number);
-			mav.addObject("pageSize", pageSize);
+			mav.addObject("pageNum", page.getPageNum());
+			
+			// 시작 및 끝 번호
+			mav.addObject("startPageNum", page.getStartPageNum());
+			mav.addObject("endPageNum", page.getEndPageNum());
+			
+			// 이전 및 다음
+			mav.addObject("prev", page.isPrev());
+			mav.addObject("next", page.isNext());
+			
+			// 현재 페이지
+			mav.addObject("select", num);
 			
 		}catch(Exception e) {
 			System.out.println("Error(TTPageController/notice_list.do) : " + e.getMessage());
@@ -183,9 +232,17 @@ public class TTPageController {
 	
 	// Notice board detail
 	@GetMapping("/notice_detail.do")
-	public ModelAndView noticeBoardDetail() {
+	public ModelAndView noticeBoardDetail(@RequestParam("notice_num")int notice_num) throws Exception {
 		ModelAndView mav = new ModelAndView();
-		
+		NoticeVO noticeVO;
+		try {
+			noticeVO = tts.getNoticeDetail(notice_num);
+			
+			mav.addObject("noticeVO", noticeVO);
+		}catch(Exception e) {
+			System.out.println("Error(TTPageController/notice_detail) : " + e.getMessage());
+		}
+		mav.setViewName("board_notice_detail");
 		return mav;
 	}
 	

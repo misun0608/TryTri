@@ -71,15 +71,41 @@ public class TrytriServiceImpl implements TrytriService {
 		return count;
 	}
 	
+//	@Override
+//	public ArrayList<NoticeVO> loadNoticeBoard(int startRow, int endRow) throws Exception{
+//		ArrayList<NoticeVO> nlist = null;
+//		try {
+//			BoardMapper boardMapper = sqlSession.getMapper(BoardMapper.class);
+//			nlist = boardMapper.loadNoticeBoard(startRow, endRow);
+//		}catch(Exception e) {
+//			System.out.println("Error(TrytriService/loadNoticeBoard) : " + e.getMessage());
+//			throw new Exception("Error(TrytriService/loadNoticeBoard)", e);
+//		}
+//		return nlist;
+//	}
+	
 	@Override
-	public ArrayList<NoticeVO> loadNoticeBoard(int startRow, int endRow) throws Exception{
+	public NoticeVO getNoticeDetail(int notice_num) throws Exception{
+		NoticeVO noticeVO;
+		try {
+			BoardMapper boardMapper = sqlSession.getMapper(BoardMapper.class);
+			noticeVO = boardMapper.getNoticeDetail(notice_num);
+		}catch(Exception e) {
+			System.out.println("Error(TrytriService/getNoticeDetail) : " + e.getMessage());
+			throw new Exception("Error(TrytriService/getNoticeDetail)", e);
+		}
+		return noticeVO;
+	}
+	
+	@Override
+	public ArrayList<NoticeVO> listPage(int displayPost, int postNum) throws Exception{
 		ArrayList<NoticeVO> nlist = null;
 		try {
 			BoardMapper boardMapper = sqlSession.getMapper(BoardMapper.class);
-			nlist = boardMapper.loadNoticeBoard(startRow, endRow);
+			nlist = boardMapper.listPage(displayPost, postNum);
 		}catch(Exception e) {
-			System.out.println("Error(TrytriService/loadNoticeBoard) : " + e.getMessage());
-			throw new Exception("Error(TrytriService/loadNoticeBoard)", e);
+			System.out.println("Error(TrytriService/listPage) : " + e.getMessage());
+			throw new Exception("Error(TrytriService/listPage)", e);
 		}
 		return nlist;
 	}
