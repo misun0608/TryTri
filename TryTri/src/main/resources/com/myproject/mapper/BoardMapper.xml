@@ -50,4 +50,14 @@
 	 	order by notice_num desc
 	  	limit #{displayPost}, #{postNum}
 	</select>
+	
+	<!-- Update notice -->
+	<update id="updateNotice" parameterType="com.myproject.trytri.voes.NoticeVO">
+		update trytri.tt_notice
+		set 
+		notice_title = #{notice_title}, 
+		notice_content = #{notice_content},
+		notice_type = #{notice_type}
+		where notice_num = #{notice_num}
+	</update>
 </mapper>

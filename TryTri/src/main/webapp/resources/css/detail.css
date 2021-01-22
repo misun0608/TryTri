@@ -1,15 +1,13 @@
-#container{
-    /* width: 1000px; */
-    height: 100vh;
-    /* background: var(--fds-fb-blue-70); */
-    display: flex;
-    justify-content: center;
-    /* align-items: center ; */
+#wrapper {
+  position: relative;
+  top: 150px;
+  width: 1000px;
+  margin: 0 auto;
 }
 
 .board_area{
-    width: 1000px;
-    position: relative;
+    width: 100%;
+	position: relative;
 }
 
 /* ///////////Notice board write form////////// */
@@ -18,7 +16,7 @@
     display: block;
     position:absolute;
     /* width: 100%; */
-    top: 300px;
+    top: 50px;
     width: 100vh;
 }
 

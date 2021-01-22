@@ -19,10 +19,12 @@
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/page.js"></script>
 </head>
 <body>
-	<header id="header"></header>
-	
-    <section id="container">
+<section id="container">
+    <header id="header"></header>
+    
+    <div id="wrapper">
         <article class="board_area">
+	    <h1 class="headline">Notice</h1>
             <div id="table">
                 <div class="row title">
                     <span class="cell col1">번호</span>
@@ -40,38 +42,32 @@
                 </c:forEach>
             </div>
             
-            <div class="write_button">
-            	<button onClick="location.href='./notice_write_page.do'">글쓰기</button>
+            <div class="write_button_div">
+            	<button class="write_button" onClick="location.href='./notice_write_page.do'">글쓰기</button>
             </div>
 
             <!-- 페이징 부분-->
             <div class="paging">
 				<ul class="pagination modal">
-					<c:if test="${page.prev}">
-						<li><a href="notice_list.do?num=${page.startPageNum - 1}">이전</a></li>
+					<c:if test="${prev}">
+						<li><a href="notice_list.do?num=${startPageNum - 1}">이전</a></li>
 					</c:if>
 					
-					<c:forEach begin="${page.startPageNum}" end="${page.endPageNum}" var="num">
-						<li>
-						<c:if test="${select != num}">
-							<a href="notice_list.do?num=${num}">${num}</a>
-						</c:if>
-						<c:if test="${select == num}">
-							<b>${num}</b>
-						</c:if>
-						</li>
+					<c:forEach begin="${startPageNum}" end="${endPageNum}" var="num">
+		            	<a href="notice_list.do?num=${num}">${num}</a>
 					</c:forEach>
 
-					<c:if test="${page.next}">
-						<li><a href="notice_list.do?num=${page.endPageNum + 1}">다음</a></li>
+					<c:if test="${next}">
+						<li><a href="notice_list.do?num=${endPageNum + 1}">다음</a></li>
 					</c:if>
 
 				</ul>
             </div>
             <!--페이징 부분 끝-->
         </article>
-    </section>
-	
+    </div>
 	<!-- <footer id="footer"></footer> -->
+</section>
+	
 </body>
 </html>

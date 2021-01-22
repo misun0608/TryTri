@@ -8,7 +8,9 @@ import org.springframework.stereotype.Service;
 
 import com.myproject.mapper.BoardMapper;
 import com.myproject.mapper.MemberMapper;
+import com.myproject.mapper.ReplyMapper;
 import com.myproject.trytri.voes.MemberVO;
+import com.myproject.trytri.voes.NReplyVO;
 import com.myproject.trytri.voes.NoticeVO;
 
 @Service
@@ -108,5 +110,56 @@ public class TrytriServiceImpl implements TrytriService {
 			throw new Exception("Error(TrytriService/listPage)", e);
 		}
 		return nlist;
+	}
+	
+	@Override
+	public void updateNotice(NoticeVO nv) throws Exception{
+		try {
+			BoardMapper boardMapper = sqlSession.getMapper(BoardMapper.class);
+			int result = boardMapper.updateNotice(nv);
+			
+			if(result == 1) {
+				System.out.println("Success in updating on Notice");
+			}else {
+				System.out.println("failure on updating on Notice");
+			}
+			
+		}catch(Exception e) {
+			System.out.println("Error(TrytriService/updateNotice) : " + e.getMessage());
+			throw new Exception("Error(TrytriService/updateNotice)", e);
+		}
+	}
+	
+	@Override
+	public ArrayList<NReplyVO> getNoticeReply(int notice_num) throws Exception{
+		ArrayList<NReplyVO> rList = null;
+		
+		try {
+			ReplyMapper replyMapper = sqlSession.getMapper(ReplyMapper.class);
+			rList = replyMapper.getNoticeReply(notice_num);
+		}catch(Exception e) {
+			System.out.println("Error(TrytriService/getNoticeReply) : " + e.getMessage());
+			throw new Exception("Error(TrytriService/getNoticeReply)", e);
+		}
+		return rList;
+	}
+	
+	@Override
+	public void insertNoticeReply(NReplyVO rv) throws Exception{
+		int result = 0;
+		
+		try {
+			ReplyMapper replyMapper = sqlSession.getMapper(ReplyMapper.class);
+			result = replyMapper.insertNoticeReply(rv);
+			
+			if(result == 1) {
+				System.out.println("댓글 입력 성공");
+			}else {
+				System.out.println("댓글 입력 실패");
+			}
+		}catch(Exception e) {
+			System.out.println("Error(TrytriService/getNoticeReply) : " + e.getMessage());
+			throw new Exception("Error(TrytriService/getNoticeReply)", e);
+		}
 	}
 }

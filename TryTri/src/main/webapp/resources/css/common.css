@@ -92,13 +92,11 @@ body {
 #footer{
     width: 100vw;   
     background-color: var(--fds-fb-blue-70);
-    /*
     position: fixed;
     left: 0;
     bottom: 0;
-    */
-	position: relative;
-	margin-top: -400px;
+	/* position: relative; */
+	margin-top: 400px;
     /* 하단에 고정하기 위해 */
     z-index: 9999;
 }

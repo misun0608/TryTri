@@ -1,6 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %> 
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%
+	String member_id = (String)session.getAttribute("member_id");
+	System.out.println("(board_notice_detail.jsp)member_id: " + member_id);
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,9 +28,11 @@
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/board.js"></script>
 </head>
 <body>
+	
+<section id="container">
 	<header id="header"></header>
 	
-	<section id="container">
+	<div id="wrapper">
         <article class="board_area">
             <div id="table2">
                 <div class="row2 nc_title">
@@ -43,9 +49,9 @@
                 <!-- 버튼 -->
                 <div class="row2 detail_btn_row">
                     <div class="cell detail_btn_cell">
-                        <button class="upload_btn">목록</button>
-                        <button class="upload_btn">수정</button>
-                        <button class="upload_btn">삭제</button>
+                        <button class="upload_btn" onClick="location.href='./notice_list.do'">목록</button>
+                        <button class="upload_btn" onClick="location.href='./notice_update_page.do?notice_num=${noticeVO.notice_num}'">수정</button>
+                        <button class="upload_btn" onClick="location.href='./notice_delete.do'">삭제</button>
                     </div>
                 </div>
 
@@ -53,6 +59,8 @@
                 <form action="">
                     <div class="row2">
 	                    <div class="cell">
+	                    	<input type="hidden" name="member_id" value="${member_id}">
+	                    	<input type="hidden" name="notice_num" value="${noticeVO.notice_num}">
 	                        <textarea class="content_textarea" name="reply_content" placeholder="댓글을 입력해주세요."></textarea>
 	                    </div>
                 	</div>
@@ -68,9 +76,11 @@
                 </div>
             </div>
         </article>
-    </section>
+        </div>
+        
+<!--     <footer id="footer"></footer> -->
+</section>
     
-    <footer id="footer"></footer>
 
 </body>
 </html>

@@ -17,9 +17,11 @@
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/page.js"></script>
 </head>
 <body>
+<section id="container">
 	<header id="header"></header>
 	
 	
 	<footer id="footer"></footer>
+</section>
 </body>
 </html>

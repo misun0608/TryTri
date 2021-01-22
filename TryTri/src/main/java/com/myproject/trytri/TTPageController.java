@@ -86,9 +86,9 @@ public class TTPageController {
 		try {
 			String result = tts.userChk(memberVO);
 			
-			response.setCharacterEncoding("UTF-8");
-			response.setContentType("text/html; charset=utf-8");
-			PrintWriter writer = response.getWriter();
+//			response.setCharacterEncoding("UTF-8");
+//			response.setContentType("text/html; charset=utf-8");
+//			PrintWriter writer = response.getWriter();
 			
 			if(result.equals("login_error")) {
 				System.out.println("로그인 오류");
@@ -245,5 +245,35 @@ public class TTPageController {
 		mav.setViewName("board_notice_detail");
 		return mav;
 	}
+	
+	// Go to update notice
+	@GetMapping("/notice_update_page")
+	public ModelAndView go_update_notice(@RequestParam("notice_num")int notice_num) throws Exception{
+		ModelAndView mav = new ModelAndView();
+		NoticeVO noticeVO;
+		try {
+			noticeVO = tts.getNoticeDetail(notice_num);
+			mav.addObject("noticeVO", noticeVO);
+		}catch(Exception e) {
+			System.out.println("Error(TTPageController/go_update_notice) : " + e.getMessage());
+		}
+		mav.setViewName("board_notice_update");
+		return mav;
+	}
+	
+	// Update notice
+	@PostMapping("/update_notice")
+	public String update_notice(NoticeVO nv) throws Exception{
+		
+		try {
+			tts.updateNotice(nv);
+		}catch(Exception e) {
+			System.out.println("Error(TTPageController/update_notice) : " + e.getMessage());
+		}
+		
+		return "redirect:notice_list.do";
+	}
+	
+	// Delete notice
 	
 }

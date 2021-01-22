@@ -3,6 +3,7 @@ package com.myproject.trytri;
 import java.util.ArrayList;
 
 import com.myproject.trytri.voes.MemberVO;
+import com.myproject.trytri.voes.NReplyVO;
 import com.myproject.trytri.voes.NoticeVO;
 
 public interface TrytriService {
@@ -23,4 +24,13 @@ public interface TrytriService {
 	
 	//
 	public ArrayList<NoticeVO> listPage(int displayPost, int postNum) throws Exception;
+	
+	// Update Notice
+	public void updateNotice(NoticeVO nv) throws Exception;
+	
+	// Get Reply list
+	public ArrayList<NReplyVO> getNoticeReply(int notice_num) throws Exception;
+	
+	public void insertNoticeReply(NReplyVO rv) throws Exception;
+	
 }

@@ -83,8 +83,9 @@ public class Page {
 		// 시작 번호
 		startPageNum = endPageNum - (pageNumCnt - 1);
 		 
-		// 하단 페이징 번호([게시물 총 개수 / 한페이지에 출력할 개수]의 올림)
+		
 		// 마지막 번호 재계산
+		// 하단 페이징 번호([게시물 총 개수 / 한페이지에 출력할 개수]의 올림)
 		int endPageNum_tmp = (int)(Math.ceil((double)count / (double)pageNumCnt));
 		 
 		if(endPageNum > endPageNum_tmp) {

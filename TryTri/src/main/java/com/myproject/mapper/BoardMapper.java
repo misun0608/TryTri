@@ -12,4 +12,5 @@ public interface BoardMapper {
 //	ArrayList<NoticeVO> loadNoticeBoard(@Param("startRow")int startRow, @Param("endRow")int endRow);
 	NoticeVO getNoticeDetail(int notice_num);
 	ArrayList<NoticeVO> listPage(@Param("displayPost")int displayPost, @Param("postNum")int postNum);
+	int updateNotice(NoticeVO nv);
 }

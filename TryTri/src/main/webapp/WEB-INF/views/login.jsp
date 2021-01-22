@@ -19,9 +19,10 @@
 
 </head>
 <body>
+<section id="container">
 	<header id="header"></header>
 	
-	<section id="container">
+	<div id="wrapper">
 	    <div class="login_outline">
 	        <div class="login_area">
 	            <h3 class="login_title">LOGIN</h3>
@@ -55,7 +56,9 @@
 	            </form>
 	        </div>
 	    </div>
-	</section>
+	 </div>
+	<footer id="footer"></footer>
 
+</section>
 </body>
 </html>
