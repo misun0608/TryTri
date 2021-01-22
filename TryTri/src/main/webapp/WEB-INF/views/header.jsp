@@ -1,11 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%
-	String id = (String)session.getAttribute("member_id");
-	// System.out.println("header.jsp / member_id : " + id);
-	String certificate = (String)session.getAttribute("member_certificate");
-	String is_admin = (String)session.getAttribute("member_isadmin");
-%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -64,7 +59,7 @@
                 	<li class="signup"><a href="./signup_page.do">회원가입</a></li>
                     <li class="login"><a href="./login_page.do">로그인</a></li>
                 <%
-                	}else if(id != null && is_admin.equals("N")){
+                	}else if(id != null && is_admin.equals("N") || id != null && is_admin == null){
                 %>
                 	<li class="mypage"><a href="./mypage.do">마이페이지</a></li>
                 	<li class="logout"><a href="./logout.do">로그아웃</a></li>

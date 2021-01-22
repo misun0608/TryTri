@@ -1,6 +1,5 @@
 package com.myproject.trytri;
 
-import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletResponse;
@@ -44,7 +43,7 @@ public class TTPageController {
 	
 	// Header
 	@RequestMapping(value = "header.do")
-	public String header() throws Exception{
+	public String header(HttpSession session) throws Exception{
 		try {
 			
 		}catch(Exception e) {
@@ -82,26 +81,40 @@ public class TTPageController {
 	
 	// Login process
 	@PostMapping("/login_process.do")
-	public String login_process(MemberVO memberVO, HttpSession session, HttpServletResponse response) throws Exception{
+	public String login_process(MemberVO memberVO, HttpSession session) throws Exception{
 		try {
-			String result = tts.userChk(memberVO);
+			MemberVO result = tts.userChk(memberVO);
+			
+			if(result == null) {
+				session.setAttribute("member_id", null);
+				session.setAttribute("member_certificate", null);
+				session.setAttribute("member_isadmin", null);
+				System.out.println("로그인 실패");
+			}else {
+				session.setAttribute("member_id", result.getMember_id());
+				session.setAttribute("member_certificate", result.getMember_certificate());
+				session.setAttribute("member_isadmin", result.getMember_isadmin());
+				System.out.println("로그인 성공");
+			}
 			
 //			response.setCharacterEncoding("UTF-8");
 //			response.setContentType("text/html; charset=utf-8");
 //			PrintWriter writer = response.getWriter();
 			
-			if(result.equals("login_error")) {
-				System.out.println("로그인 오류");
-			}else if(result.equals("login_accept")) {
-				session.setAttribute("member_id", memberVO.getMember_id());
-				session.setAttribute("member_certificate", memberVO.getMember_certificate());
-				session.setAttribute("member_isadmin", memberVO.getMember_isadmin());
-				System.out.println("로그인 성공");
-			}else if(result.equals("non_member")) {
-				System.out.println("회원아님");
-			}else if(result.equals("wrong_pw")) {
-				System.out.println("잘못된 비밀번호");
-			}
+//			if(result.equals("login_error")) {
+//				System.out.println("로그인 오류");
+//			}else if(result.equals("login_accept")) {
+//				session.setAttribute("member_id", memberVO.getMember_id());
+//				session.setAttribute("member_certificate", memberVO.getMember_certificate());
+//				session.setAttribute("member_isadmin", memberVO.getMember_isadmin());
+//				System.out.println("로그인 성공");
+//			}else if(result.equals("non_member")) {
+//				System.out.println("회원아님");
+//			}else if(result.equals("wrong_pw")) {
+//				System.out.println("잘못된 비밀번호");
+//			}
+			
+			
 		}catch(Exception e) {
 			System.out.println("Error(TTPageController/login_process) : " + e.getMessage());
 		}

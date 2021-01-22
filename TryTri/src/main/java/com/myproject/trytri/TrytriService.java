@@ -8,7 +8,7 @@ import com.myproject.trytri.voes.NoticeVO;
 
 public interface TrytriService {
 	// Login
-	public String userChk(MemberVO memberVO) throws Exception;
+	public MemberVO userChk(MemberVO memberVO) throws Exception;
 	
 	// Notice board
 	public void insertNoticeBoard(NoticeVO nv) throws Exception;

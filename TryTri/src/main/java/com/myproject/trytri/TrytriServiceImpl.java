@@ -20,24 +20,24 @@ public class TrytriServiceImpl implements TrytriService {
 	private SqlSession sqlSession;
 	
 	@Override
-	public String userChk(MemberVO memberVO) throws Exception{
-		MemberVO member_db;
+	public MemberVO userChk(MemberVO memberVO) throws Exception{
+		MemberVO member_db = null;
 		
 		try {
 			MemberMapper memberMapper = sqlSession.getMapper(MemberMapper.class);
 			member_db = memberMapper.userChk(memberVO);
 			
-			if(member_db == null) {
-				return "non_member";
-			}else if(!member_db.getMember_pw().equals(memberVO.getMember_pw())) {
-				return "wrong_pw";
-			}
+//			if(member_db == null) {
+//				return "non_member";
+//			}else if(!member_db.getMember_pw().equals(memberVO.getMember_pw())) {
+//				return "wrong_pw";
+//			}
 			
 		}catch(Exception e) {
 			System.out.println("ERROR(TrytriService/userChk) : " + e.getMessage());
-			return "login_error";
+//			return "login_error";
 		}
-		return "login_accept";
+		return member_db;
 	}
 	
 	@Override
