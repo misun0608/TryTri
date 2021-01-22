@@ -1,6 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%
+	String id = (String)session.getAttribute("member_id");
+	String certificate = (String)session.getAttribute("member_certificate");
+	String is_admin = (String)session.getAttribute("member_isadmin");
+%>
 <!DOCTYPE html>
 <html>
 <head>
