@@ -9,3 +9,4 @@ function onclick_write(){
 		notice_form.submit();
 	}
 }
+

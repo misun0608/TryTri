@@ -13,7 +13,8 @@
 		<result property="reply_content" column="reply_content"/>
 		<result property="reply_reg_date" column="reply_reg_date"/>
 	</resultMap>
-
+	
+	<!-- 댓글 조회 -->
 	<select id="getNoticeReply" parameterType="int" resultMap="replyVO">
 		SELECT *
 		FROM trytri.tt_notice_reply
@@ -21,11 +22,12 @@
 		ORDER BY reply_num desc
 	</select>
 	
+	<!-- 댓글 작성 -->	
 	<insert id="insertNoticeReply" parameterType="com.myproject.trytri.voes.NReplyVO">
 		insert into trytri.tt_notice_reply
 		(notice_num, member_id, reply_content, reply_reg_date)
 		 values
-		(#{notice_num}, #{member_id}, reply_content, now())
+		(#{notice_num}, #{member_id}, #{reply_content}, now())
 	</insert>
 	
 </mapper>

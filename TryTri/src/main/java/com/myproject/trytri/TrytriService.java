@@ -31,6 +31,6 @@ public interface TrytriService {
 	// Get Reply list
 	public ArrayList<NReplyVO> getNoticeReply(int notice_num) throws Exception;
 	
-	public void insertNoticeReply(NReplyVO rv) throws Exception;
+	public int insertNoticeReply(NReplyVO rv) throws Exception;
 	
 }

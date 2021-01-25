@@ -130,6 +130,9 @@ public class TrytriServiceImpl implements TrytriService {
 		}
 	}
 	
+	
+	////////////////////////////////댓글//////////////////////////////////////
+	// 댓글 출력
 	@Override
 	public ArrayList<NReplyVO> getNoticeReply(int notice_num) throws Exception{
 		ArrayList<NReplyVO> rList = null;
@@ -144,8 +147,9 @@ public class TrytriServiceImpl implements TrytriService {
 		return rList;
 	}
 	
+	// 댓글 작성
 	@Override
-	public void insertNoticeReply(NReplyVO rv) throws Exception{
+	public int insertNoticeReply(NReplyVO rv) throws Exception{
 		int result = 0;
 		
 		try {
@@ -161,5 +165,6 @@ public class TrytriServiceImpl implements TrytriService {
 			System.out.println("Error(TrytriService/getNoticeReply) : " + e.getMessage());
 			throw new Exception("Error(TrytriService/getNoticeReply)", e);
 		}
+		return result;
 	}
 }
