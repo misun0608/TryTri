@@ -6,7 +6,6 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.myproject.trytri.voes.NReplyVO;
@@ -17,7 +16,7 @@ public class TTAjaxController {
 	@Autowired
 	private TrytriService tts;
 	
-	@PostMapping(value="getNoticeReply.do", produces="application/json;charset=UTF-8")
+	@PostMapping(value="/getNoticeReply.do", produces="application/json;charset=UTF-8")
 	public ArrayList<NReplyVO> getNoticeReply(int notice_num) throws Exception{
 		ArrayList<NReplyVO> rList = new ArrayList<NReplyVO>();
 		try {
@@ -46,6 +45,28 @@ public class TTAjaxController {
 		}catch(Exception e) {
 			e.printStackTrace();
 			result.put("status", "Error(TTAjaxController/insertNoticeReply)");
+		}
+		
+		return result;
+	}
+	
+	@PostMapping(value="deleteNoticeReply.do")
+	public Map<String, Object> deleteNoticeReply(int reply_num) throws Exception{
+		Map<String, Object> result = new HashMap<String, Object>();
+		
+		try {
+			int res = 0;
+			res = tts.deleteNoticeRaply(reply_num);
+			
+			if(res != 0) {
+				result.put("status", "댓글 삭제 성공");
+			}else {
+				result.put("status", "댓글 삭제 실패");
+			}
+			
+		}catch(Exception e) {
+			System.out.println("Error(TTAjaxController/deleteNoticeReply) : " + e.getMessage());
+			result.put("status", "Error(TTAjaxController/deleteNoticeReply)");
 		}
 		
 		return result;

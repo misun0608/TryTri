@@ -32,5 +32,6 @@ public interface TrytriService {
 	public ArrayList<NReplyVO> getNoticeReply(int notice_num) throws Exception;
 	
 	public int insertNoticeReply(NReplyVO rv) throws Exception;
+	public int deleteNoticeRaply(int reply_num) throws Exception;
 	
 }

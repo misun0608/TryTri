@@ -167,4 +167,24 @@ public class TrytriServiceImpl implements TrytriService {
 		}
 		return result;
 	}
+	
+	@Override
+	public int deleteNoticeRaply(int reply_num) throws Exception{
+		int result = 0;
+		
+		try {
+			ReplyMapper replyMapper = sqlSession.getMapper(ReplyMapper.class);
+			result = replyMapper.deleteNoticeReply(reply_num);
+			
+			if(result == 1) {
+				System.out.println("댓글 삭제 성공");
+			}else {
+				System.out.println("댓글 삭제 실패");
+			}
+		}catch(Exception e) {
+			System.out.println("Error(TrytriService/deleteNoticeReply) : " + e.getMessage());
+			throw new Exception("Error(TrytriService/deleteNoticeReply)", e);
+		}
+		return result;
+	}
 }

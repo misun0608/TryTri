@@ -119,3 +119,28 @@
 .reply_button_cell{
     float: right;
 }
+
+/* 댓글표시부분 */
+#replyList > li > div > span {
+  line-height: 2;
+}
+
+#replyList span:nth-child(1) {
+  font-weight: bold;
+}
+
+#replyList span:nth-child(2) {
+  font-size: 0.8em;
+}
+
+#replyList span:nth-child(3) {
+  float: right;
+}
+
+#replyList p {
+  font-size: 0.9em;
+}
+
+#replyList div {
+  margin-bottom: 10px;
+}

@@ -30,4 +30,9 @@
 		(#{notice_num}, #{member_id}, #{reply_content}, now())
 	</insert>
 	
+	<!-- 댓글 삭제 -->
+	<delete id="deleteNoticeReply" parameterType="int">
+		delete from trytri.tt_notice_reply
+		where reply_num = #{reply_num}
+	</delete>
 </mapper>

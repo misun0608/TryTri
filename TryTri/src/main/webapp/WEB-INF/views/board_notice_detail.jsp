@@ -4,9 +4,8 @@
 <%@ page import="com.myproject.trytri.voes.*" %>
 <%
 	String member_id = (String)session.getAttribute("member_id");
-	System.out.println("(board_notice_detail.jsp)member_id: " + member_id);
 	NoticeVO noticeVO = (NoticeVO)request.getAttribute("noticeVO");
-	System.out.println("(board_notice_detail.jsp)notice_num: " + noticeVO.getNotice_num());
+	//NReplyVO rvo = (NReplyVO)request.getAttribute("NReplyVO");
 %>
 <!DOCTYPE html>
 <html>
@@ -29,7 +28,9 @@
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery.easing.1.3.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/page.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/board.js"></script>
-	
+	<!-- momentjs -->
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+
 	<script>
 	$(document).ready(function(){
 		showReplyList();
@@ -39,49 +40,50 @@
 	function showReplyList(){
 		let url = "getNoticeReply.do";
 		let paramData = {"notice_num" : "${noticeVO.notice_num}"};
+		//$("#replyList").empty();
 
 		$.ajax({
-	        type: 'POST',
 	        url: url,
+	        type: 'POST',
 	        contentType: 'application/x-www-form-urlencoded;charset=utf-8',
 	        data: paramData,
 	        dataType: 'json',
 
 	        success: function(result) {
 	           	let htmls = "";
-	           	console.log('success로 넘어왔네');
 				if(result == null){
 					htmls.push("등록된 댓글이 없습니다.");
 				} else {
-		            $(result).each(function(){
+		            $(result).each(function(index, comment){
 		            	htmls += '<li>';
 		            	htmls += '<div>';
 		            	htmls += '<span>';
-		            	htmls += this.member_id;
+		            	htmls += comment.member_id;
 		            	htmls += '</span>';
 		            	
+		            	if(comment.member_id == '<%=member_id %>'){
+			            	htmls += '<span>';
+			            	htmls += '<a href="javascript:void(0)" onclick="update_reply('+ comment.reply_num, comment.member_id, comment.reply_content +')">수정</a>';
+			            	htmls += '</span>';
+			            	htmls += '<span>';
+			            	htmls += '<a href="javascript:void(0)" onclick="delete_reply('+ comment.reply_num +')">삭제</a>';
+			            	htmls += '</span>';
+		            	}
 		            	htmls += '<span>';
-		            	htmls += '<a href="javascript:void(0)" onclick="">수정</a>';
-		            	htmls += '</span>';
-		            	htmls += '<span>';
-		            	htmls += '<a href="javascript:void(0)" onclick="">삭제</a>';
-		            	htmls += '</span>';
-		            	
-		            	htmls += '<span>';
-		            	htmls += this.reply_reg_date;
+		            	htmls += moment(comment.reply_reg_date).format('YYYY-MM-DD');
 		            	htmls += '</span>';
 		            	htmls += '<p>';
-		            	htmls += this.reply_content;
+		            	htmls += comment.reply_content;
 		            	htmls += '</p>';
 		            	
 		            	htmls += '</div>';
 		            	htmls += '</li>';
-		    			$("#replyList").html(htmls);
+		            	htmls += '</form>';
+		    			$("#replyList").html(htmls).trigger("create");
 		            });	//each end
 				}
 	        },	   // Ajax success end
 			error: function(){
-				console.log('error로 넘어왔네');
 				alert('현재 서버와의 통신이 원할하지 않습니다.(댓글리스트)');
 			}
 		});	// Ajax end
@@ -90,9 +92,7 @@
 	// 댓글 저장 이벤트
 	$(document).on('click', '.write_btn', function(e){
 		let reply_content = $('#reply_content').val();
-		console.log('reply_content: ' + reply_content);
 		let member_id = $('#member_id').val();
-		console.log('member_id: ' + member_id);
 		
 		if(!login_chk(member_id)){return;}
 		if(!content_chk(reply_content)){return;}
@@ -133,6 +133,27 @@
 		e.preventDefault();
 	});
 	
+	// 댓글 삭제
+	function delete_reply(rid){
+		let params = {"reply_num" : rid};
+		
+		$.ajax({
+			url: 'deleteNoticeReply.do',
+			type: 'POST',
+			data: params,
+			contentType: 'application/x-www-form-urlencoded;charset=utf-8',
+			dataType: 'json',
+			
+			success: function(result){
+				showReplyList();	
+			},
+			error: function(){
+				alert('현재 서버와 통신이 원활하지 않습니다.(delete)');
+			}
+		});
+		//e.preventDefault();
+	}
+
 	function login_chk(member_id){
 		if(member_id == "null" || member_id == ""){
 			alert('로그인 후 이용해주세요.');
@@ -180,7 +201,7 @@
 				<%
 					if(member_id != null){
 				%>
-				<form name="reply_write_form" method="post">
+				<form name="reply_write_form">
                 <!--댓글부분-->
                 <div class="row2">
                 	<div class="cell">
@@ -189,7 +210,6 @@
 	                    <textarea class="content_textarea" name="reply_content" id="reply_content" placeholder="댓글을 입력해주세요."></textarea>
                 	</div>
             	</div>
-
 
                 <!--버튼부분-->
                 <div class="row2 reply_button_row">
@@ -203,19 +223,7 @@
                 %>
                 <!-- 댓글 표시 부분 -->
                 <div class="row2">
-                	<ul id="replyList">
-<!--                 		<li>
-                			<div>
-                				<span>member_id</span>
-                				<span>
-                					<a href="javascript:void(0)" onclick="">수정</a>
-                					<a href="javascript:void(0)" onclick="">삭제</a>
-                				</span>
-                				<span>댓글작성날짜</span>
-                				<p>댓글 내용</p>
-                			</div>
-                		</li> -->
-                	</ul>
+                	<ul id="replyList"></ul>
                 </div>
                 
             </div>
